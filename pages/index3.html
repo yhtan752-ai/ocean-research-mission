@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OceanX: Tracking Mission</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div id="mission-three-container">
+        
+        <div class="ocean-environment">
+            <div class="swimmer fish fish-1"></div>
+            <div class="swimmer fish fish-2"></div>
+            <div class="swimmer fish fish-3"></div>
+            <div class="swimmer wrasse wrasse-1"></div>
+            <div class="swimmer wrasse wrasse-2"></div>
+            <div class="coral-left"></div>
+            <div class="coral-right"></div>
+            <div class="seabed-plants">
+                <div class="grass-blade"></div>
+
+                <div class="grass-blade"></div>
+            </div>
+        </div>
+
+        <div class="mission-layout-center">
+            
+            <div class="mission-header">Mission 1</div>
+
+            <div class="track-hint" id="track-hint">
+                &#128072; Every time you spot a shark, press the <b>&ldquo;Click to Track&rdquo;</b> button below!
+            </div>
+
+            <div class="tracking-video-wrapper" id="click-target-zone">
+                <video id="active-mission-video" src="../videos/sharktest.mp4" muted></video>
+                <div id="countdown-overlay" class="countdown-overlay-mask">
+                    <div class="countdown-instruction">Get ready! Click <b>&ldquo;Track&rdquo;</b> for every shark you see.</div>
+                    <span id="countdown-number">3</span>
+                </div>
+            </div>
+
+            <div class="tracker-console-row">
+                <button class="btn-track attn" id="track-trigger-btn">&#128072; Click to Track</button>
+
+                <div class="counter-display-box">
+                    Sharks Tracked: <span id="counter-score">0</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../ocean-fx.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Audio for the tracking mission. Respects the top-right mute toggle
+        // via the shared "oceanx-muted" flag.
+        (function () {
+            function isMuted() { try { return localStorage.getItem("oceanx-muted") === "1"; } catch (e) { return false; } }
+
+            // Alternate the counting-game video each playthrough so it isn't
+            // repetitive. Flip the stored variant, then load the matching input.
+            var variant = "A";
+            try {
+                variant = (localStorage.getItem("oceanx-variant") === "A") ? "B" : "A";
+                localStorage.setItem("oceanx-variant", variant);
+            } catch (e) {}
+            var inputVid = document.getElementById("active-mission-video");
+            if (inputVid) {
+                inputVid.src = (variant === "B") ? "../videos/2ndinput.mp4" : "../videos/sharktest.mp4";
+            }
+
+            // Countdown: play countdown.wav the instant the "3" appears so its
+            // beeps (0s / 1s / 2s / 3s) line up with 3, 2, 1, GO on screen.
+            var cd = new Audio("../audio/countdown.wav");
+            cd.volume = 0.85;
+            if (!isMuted()) { cd.play().catch(function () {}); }
+
+            // Click sound each time the "Click to Track" button is pressed.
+            var clickSfx = new Audio("../audio/clickbutton.mp3");
+            clickSfx.preload = "auto";
+            var trackBtn = document.getElementById("track-trigger-btn");
+            var trackHint = document.getElementById("track-hint");
+            if (trackBtn) {
+                trackBtn.addEventListener("click", function () {
+                    // Once they get it, calm the attention cues down
+                    trackBtn.classList.remove("attn");
+                    if (trackHint) trackHint.style.opacity = "0.4";
+
+                    if (isMuted()) return;
+                    var s = clickSfx.cloneNode();   // clone so rapid clicks overlap
+                    s.volume = 1.0;
+                    s.play().catch(function () {});
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
