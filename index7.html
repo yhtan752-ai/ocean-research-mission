@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <title>OceanX: End of Mission</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div id="mission-six-container">
+
+        <div class="ocean-environment">
+            <div class="swimmer shark"></div>
+            <div class="swimmer shark shark-2"></div>
+            <div class="swimmer fish fish-1"></div>
+            <div class="swimmer fish fish-2"></div>
+            <div class="swimmer fish fish-3"></div>
+            <div class="swimmer wrasse wrasse-1"></div>
+            <div class="swimmer wrasse wrasse-2"></div>
+            <div class="coral-left"></div>
+            <div class="coral-right"></div>
+            <div class="seabed-plants">
+                <div class="grass-blade"></div>
+                <div class="grass-blade"></div>
+                <div class="grass-blade"></div>
+                <div class="grass-blade"></div>
+            </div>
+        </div>
+
+        <div class="mission-layout-center offboard-layout">
+            <div class="mission-header">End of Mission</div>
+
+            <div class="offboard-intro">
+                Thank you, fellow scientists, for joining us on the Ocean Research Mission.
+            </div>
+
+            <div class="offboard-recap">
+                <div class="recap-card">
+                    <h3>Mission 1</h3>
+                    <div class="recap-sub">What you experienced</div>
+                    <ul>
+                        <li>How scientists use technology to help with their work &mdash; such as counting sharks using AI object detection models.</li>
+                        <li>Why scientists track shark populations &mdash; to better understand and protect the balance of the marine ecosystem.</li>
+                    </ul>
+                </div>
+                <div class="recap-card">
+                    <h3>Mission 2</h3>
+                    <div class="recap-sub">What you understood</div>
+                    <ul>
+                        <li>How different shark populations lead to different ecosystem outcomes.</li>
+                        <li>How balanced population sizes keep every species healthy &mdash; leading to a healthy ecosystem.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="summary-interaction-row">
+                <div class="character-wrapper-p2 protector-stage">
+                    <model-viewer
+                        class="protector-model"
+                        src="../animations/salute.glb"
+                        autoplay
+                        animation-name="Salute"
+                        camera-orbit="0deg 90deg auto"
+                        interaction-prompt="none"
+                        disable-zoom disable-pan disable-tap
+                        shadow-intensity="0.9"
+                        exposure="1.1"
+                        environment-image="neutral"
+                        style="width: 100%; height: 100%; display: block; --poster-color: transparent;">
+                    </model-viewer>
+                </div>
+
+                <div class="summary-dialog-stack">
+                    <div class="summary-bubble">
+                        We hope this experience has given you some valuable takeaways, and we look forward to seeing you again.
+                    </div>
+                    <button class="btn-proceed" id="restart-btn">Back to Start &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../ocean-fx.js"></script>
+    <script src="../script.js"></script>
+</body>
+</html>
